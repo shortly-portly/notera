@@ -2,22 +2,36 @@ defmodule NoteraWeb.Router do
   use NoteraWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {NoteraWeb.Layouts, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {NoteraWeb.Layouts, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", NoteraWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :home
+    get("/", PageController, :home)
+
+    live("/projects", ProjectLive.Index, :index)
+    live("/projects/new", ProjectLive.Index, :new)
+    live("/projects/:id/edit", ProjectLive.Index, :edit)
+
+    live("/projects/:id", ProjectLive.Show, :show)
+    live("/projects/:id/show/edit", ProjectLive.Show, :edit)
+
+    live "/tasks", TaskLive.Index, :index
+    live "/tasks/new", TaskLive.Index, :new
+    live "/tasks/:id/edit", TaskLive.Index, :edit
+
+    live "/tasks/:id", TaskLive.Show, :show
+    live "/tasks/:id/show/edit", TaskLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
@@ -35,10 +49,10 @@ defmodule NoteraWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: NoteraWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      live_dashboard("/dashboard", metrics: NoteraWeb.Telemetry)
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end
