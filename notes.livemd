@@ -1,0 +1,14 @@
+# Notera
+
+## Introduction
+
+Notera is a note taking app combined with an action log. It is my attempt to mix the best bits of One Note with TODO and a sprinkling of GTD.
+
+There are four main entities with the system:
+
+* Notes
+* Projects
+* Tasks
+* People
+
+A note can be associated with a combination of Project, Task or Person (or none).
