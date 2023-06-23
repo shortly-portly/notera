@@ -5,6 +5,8 @@ defmodule Notera.People.Person do
   schema "people" do
     field :name, :string
 
+    has_many :notes, Notera.Notes.Note
+
     timestamps()
   end
 

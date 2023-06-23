@@ -5,6 +5,8 @@ defmodule Notera.Projects.Project do
   schema "projects" do
     field :name, :string
 
+    has_many :notes, Notera.Notes.Note
+
     timestamps()
   end
 

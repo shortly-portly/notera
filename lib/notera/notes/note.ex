@@ -5,6 +5,10 @@ defmodule Notera.Notes.Note do
   schema "notes" do
     field :content, :string
 
+    belongs_to :project, Notera.Projects.Project
+    belongs_to :task, Notera.Tasks.Task
+    belongs_to :person, Notera.People.Person
+
     timestamps()
   end
 
